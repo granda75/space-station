@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {LocationsService} from "./locations.service";
 import {SpaceStationLocation} from "../models/space-station-location";
-import {map, Observable} from "rxjs";
+import {map, Observable, Subscription} from "rxjs";
 import {LocationNoteDialogComponent} from "../location-note-dialog/location-note-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 
@@ -10,10 +10,11 @@ import {MatDialog} from "@angular/material/dialog";
   templateUrl: './iis-location.component.html',
   styleUrls: ['./iis-location.component.scss']
 })
-export class IisLocationComponent implements OnInit {
+export class IisLocationComponent implements OnInit, OnDestroy {
 
   public spaceStationLocation: SpaceStationLocation = new SpaceStationLocation();
   public spaceStationLocation$: Observable<any> = new Observable<any>();
+  subscription1$: Subscription = new Subscription();
 
   constructor(private locationService: LocationsService, public dialog: MatDialog) {
 
@@ -37,11 +38,15 @@ export class IisLocationComponent implements OnInit {
   }
 
   getLocationFromServer() {
-    this.locationService.getLocation()
-      .pipe(map(value => value as SpaceStationLocation))
-      .subscribe(res => {
-      this.spaceStationLocation = res;
-    });
+    this.subscription1$ = this.locationService.getLocation()
+            .pipe(map(value => value as SpaceStationLocation))
+            .subscribe(res => {
+                this.spaceStationLocation = res;
+          });
+  }
+
+  ngOnDestroy() {
+    this.subscription1$.unsubscribe();
   }
 
 }
