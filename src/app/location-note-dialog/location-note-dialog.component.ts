@@ -23,8 +23,8 @@ export class LocationNoteDialogComponent {
 
   saveNote() {
     const note = this.locationNote;
-    const latitude = this.locationData?.iis_position?.latitude;
-    const longitude = this.locationData?.iis_position?.longitude;
+    const latitude = this.locationData?.iss_position?.latitude;
+    const longitude = this.locationData?.iss_position?.longitude;
     this.closeDialog();
   }
 }

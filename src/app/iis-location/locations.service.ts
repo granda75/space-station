@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
 import {SpaceStationLocation} from "../models/space-station-location";
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +16,8 @@ export class LocationsService {
   }
 
   getLocation(): Observable<SpaceStationLocation> {
-    return this.http.get(this.url + "api/Space")
+    return this.http.get<SpaceStationLocation>(this.url + "api/Space")
       .pipe(map((value: any) => value));
+
   }
 }

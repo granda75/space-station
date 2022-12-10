@@ -1,10 +1,4 @@
 
 
-<!--<ng-template *ngIf="spaceStationLocation$ | async as data">-->
-<!--  <div>Latitude: {{ data | json }}</div>-->
-<!--&lt;!&ndash;  <div>Longitude:{{ data.iis_position.longitude }}</div>&ndash;&gt;-->
-<!--</ng-template>-->
-
-
 <div *ngIf="spaceStationLocation"> {{spaceStationLocation | json}} </div>
 <button (click)="openDialog()">Input message</button>
